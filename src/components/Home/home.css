@@ -1,0 +1,58 @@
+.home {
+  width: 100%;
+  margin: auto;
+  padding: 10px 0 10px 0px;
+}
+
+input {
+  width: 98%;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.location-icon {
+  position: absolute;
+  top: 2.5%;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #47b5ff;
+}
+
+.search-icon {
+  position: absolute;
+  float: right;
+  top: 2.8%;
+  right: 7%;
+}
+
+.days {
+  display: flex;
+  gap: 7%;
+  margin-top: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  /* Extra small devices (phones, 600px and down) */
+
+  .location-icon {
+    position: absolute;
+    top: 2%;
+  }
+
+  .search-icon {
+    position: absolute;
+    float: right;
+    top: 2.3%;
+    right: 7%;
+  }
+
+  .days {
+    gap: 2%;
+    display: flex;
+    margin-top: 30px;
+  }
+}

@@ -1,0 +1,32 @@
+.weather-day {
+  text-align: center;
+  border-radius: 5px;
+  background: white;
+}
+
+.weather-day h5 {
+  margin: 10px;
+}
+
+.weather-day img {
+  width: 40%;
+}
+
+.weather-day span {
+  color: gray;
+  font-size: 0.9em;
+}
+
+.max-min {
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  /* Extra small devices (phones, 600px and down) */
+  .weather-day {
+    text-align: center;
+    border-radius: 5px;
+    padding: 2.5px;
+    background: white;
+  }
+}
