@@ -8,8 +8,9 @@ input {
   width: 98%;
   height: 35px;
   border: none;
+  padding-left: 25px;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .location-icon {
@@ -17,16 +18,11 @@ input {
   top: 2.5%;
 }
 
-input:focus {
-  outline: none;
-  border: 1px solid #47b5ff;
-}
-
 .search-icon {
   position: absolute;
   float: right;
   top: 2.8%;
-  right: 7%;
+  right: 5%;
 }
 
 .days {
@@ -37,6 +33,10 @@ input:focus {
 
 @media only screen and (max-width: 600px) {
   /* Extra small devices (phones, 600px and down) */
+
+  input {
+    width: 93%;
+  }
 
   .location-icon {
     position: absolute;

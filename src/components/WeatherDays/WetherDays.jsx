@@ -29,6 +29,7 @@ const WetherDays = ({ main, weather, currentDay }) => {
       break;
     case 6:
       currentDay = "Sat";
+      break;
     default:
   }
   return (
