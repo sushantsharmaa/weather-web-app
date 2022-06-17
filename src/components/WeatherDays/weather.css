@@ -27,7 +27,6 @@
   .weather-day {
     text-align: center;
     border-radius: 5px;
-    padding: 1px;
     background: white;
   }
 }

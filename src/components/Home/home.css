@@ -40,13 +40,13 @@ input {
 
   .location-icon {
     position: absolute;
-    top: 2%;
+    top: 1.7%;
   }
 
   .search-icon {
     position: absolute;
     float: right;
-    top: 2.3%;
+    top: 2%;
     right: 7%;
   }
 
