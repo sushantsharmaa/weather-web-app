@@ -19,7 +19,7 @@ const WeatherCard = ({ weather, currentCityWeather }) => {
     ],
     datasets: [
       {
-        label: "Temperature Rise",
+        label: "Temperature",
         data: weather.map((data) => data.main.temp),
         backgroundColor: [
           "#C499BA",
