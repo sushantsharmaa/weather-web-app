@@ -1,10 +1,40 @@
 import "./details.css";
+import LineChart from "../WeatherChart/LineChart";
+import { useState } from "react";
 
-const WeatherCard = ({ currentCityWeather }) => {
-  console.log(currentCityWeather);
+const WeatherCard = ({ weather, currentCityWeather }) => {
   let clear = "./images/clear.png";
   let clouds = "./images/clouds.png";
   let rain = "./images/rain.png";
+
+  const [userData, setUserData] = useState({
+    labels: [
+      "6:00 AM",
+      "9:00 AM",
+      "12:00 PM",
+      "3:00 PM",
+      "6:00 AM",
+      "9:00 PM",
+      "12:00 AM",
+    ],
+    datasets: [
+      {
+        label: "Temperature Rise",
+        data: weather.map((data) => data.main.temp),
+        backgroundColor: [
+          "#C499BA",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+          "#A149FA",
+          "#839AA8",
+        ],
+        borderColor: "black",
+        borderWidth: 2,
+      },
+    ],
+  });
   return (
     <div className="details">
       <div className="detail-one">
@@ -19,8 +49,37 @@ const WeatherCard = ({ currentCityWeather }) => {
           }
           alt={currentCityWeather.weather[0].main}
         />
+        <h1 className="city-name">{currentCityWeather.name}</h1>
       </div>
-      <div></div>
+      <div>
+        <LineChart chartData={userData} />
+      </div>
+      <div className="detail-three">
+        <div>
+          <h2>Pressure</h2>
+          <span>{currentCityWeather.main.pressure} hpa</span>
+        </div>
+        <div>
+          <h2>Humidity</h2>
+          <span>{currentCityWeather.main.humidity}%</span>
+        </div>
+      </div>
+      <div className="detail-three">
+        <div>
+          <h2>Sunrise</h2>
+          <span>5:24 AM</span>
+        </div>
+        <div>
+          <h2>Sunset</h2>
+          <span>7:25 PM</span>
+        </div>
+      </div>
+      <div className="detail-four">
+        <img
+          src="https://www.suntoday.org/images/sunrise-sunset.png"
+          alt="sunrise-sunset"
+        />
+      </div>
     </div>
   );
 };
