@@ -25,6 +25,20 @@ input {
   right: 5%;
 }
 
+.autocomplete {
+  width: 100%;
+  margin: 1px 0px 0px 3px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.autocompleteItems {
+  border-bottom: 1px solid #e6e6e6;
+  padding: 10px 5px;
+  cursor: pointer;
+}
+
 .days {
   display: flex;
   gap: 7%;

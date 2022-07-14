@@ -1,6 +1,6 @@
 import "./home.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 import WetherDays from "../WeatherDays/WetherDays";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import useGeoLocation from "../../Hooks/useGeoLocation";
@@ -9,11 +9,41 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Home = () => {
   const location = useGeoLocation();
+  const [search, setSearch] = useState([]);
+  console.log(search);
   const [city, setCity] = useState(null);
   let currentDay = new Date().getDay() - 1;
   const [weather, setWeather] = useState([]);
   const [isTrue, setIsTrue] = useState(false);
   const [currentCityWeather, setCurrentCityWeather] = useState({});
+
+  const debounce = (func) => {
+    let timer;
+    return function (...args) {
+      const context = this;
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        timer = null;
+        func.apply(context, args);
+      }, 500);
+    };
+  };
+
+  const handleChange = async (event) => {
+    const { value } = event.target;
+    try {
+      const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=9102fcb602fc2c718391570e2dab5618&units=metric`
+      );
+      setSearch([...search, response.data]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const optimisedVersion = useCallback(debounce(handleChange), []);
 
   const searchCityWeather = async () => {
     try {
@@ -45,13 +75,13 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    searchCityWeather();
-  }, [city]);
+  // useEffect(() => {
+  //   searchCityWeather();
+  // }, [city]);
 
-  useEffect(() => {
-    getWeatherData();
-  }, [location]);
+  // useEffect(() => {
+  //   getWeatherData();
+  // }, [location]);
 
   return (
     <div className="home">
@@ -59,13 +89,24 @@ const Home = () => {
         <LocationOnIcon className="location-icon" />
         <input
           type="text"
+          className="search"
           onKeyPress={handleKeyPress}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={optimisedVersion}
           placeholder="Search places..."
         />
         <SearchOutlinedIcon className="search-icon" />
-        <div></div>
       </div>
+      {search?.length > 0 && (
+        <div className="autocomplete">
+          {search.map((item) => {
+            return (
+              <div key={item.id} className="autocompleteItems">
+                <span>{item.name}</span>
+              </div>
+            );
+          })}
+        </div>
+      )}
       <div className="days">
         {weather.map((day, index) => {
           if (index % 8 === 0) {
