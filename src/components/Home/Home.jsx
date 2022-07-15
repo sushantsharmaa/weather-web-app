@@ -1,6 +1,6 @@
 import "./home.css";
 import axios from "axios";
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useRef } from "react";
 import WetherDays from "../WeatherDays/WetherDays";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import useGeoLocation from "../../Hooks/useGeoLocation";
@@ -8,10 +8,10 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Home = () => {
+  const myRef = useRef();
   const location = useGeoLocation();
-  const [search, setSearch] = useState([]);
-  console.log(search);
   const [city, setCity] = useState(null);
+  const [search, setSearch] = useState([]);
   let currentDay = new Date().getDay() - 1;
   const [weather, setWeather] = useState([]);
   const [isTrue, setIsTrue] = useState(false);
@@ -75,13 +75,17 @@ const Home = () => {
     }
   };
 
-  // useEffect(() => {
-  //   searchCityWeather();
-  // }, [city]);
+  useEffect(() => {
+    searchCityWeather();
+  }, [city]);
 
-  // useEffect(() => {
-  //   getWeatherData();
-  // }, [location]);
+  useEffect(() => {
+    getWeatherData();
+  }, [location]);
+
+  const clickMe = () => {
+    myRef.current.style.display = "none";
+  };
 
   return (
     <div className="home">
@@ -100,8 +104,15 @@ const Home = () => {
         <div className="autocomplete">
           {search.map((item) => {
             return (
-              <div key={item.id} className="autocompleteItems">
-                <span>{item.name}</span>
+              <div ref={myRef} key={item.id} className="autocompleteItems">
+                <span
+                  onClick={() => {
+                    clickMe();
+                    setCity(item.name);
+                  }}
+                >
+                  {item.name}
+                </span>
               </div>
             );
           })}
