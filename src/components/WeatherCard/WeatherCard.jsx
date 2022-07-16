@@ -1,6 +1,7 @@
 import "./details.css";
 import LineChart from "../WeatherChart/LineChart";
 import { useState } from "react";
+import AreaChart from "../WeatherChart/AreaChart";
 
 const WeatherCard = ({ weather, currentCityWeather }) => {
   let clear = "./images/clear.png";
@@ -74,10 +75,7 @@ const WeatherCard = ({ weather, currentCityWeather }) => {
         </div>
       </div>
       <div className="detail-four">
-        <img
-          src="https://www.suntoday.org/images/sunrise-sunset.png"
-          alt="sunrise-sunset"
-        />
+        <AreaChart />
       </div>
     </div>
   );
