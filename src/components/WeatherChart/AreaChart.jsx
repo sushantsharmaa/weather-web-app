@@ -6,21 +6,24 @@ const AreaChart = () => {
     <div className="container-fluid mb-3 mt-3">
       <Chart
         type="area"
-        height={250}
+        height={180}
         series={[
           {
-            name: "Commits",
+            name: "Time",
             data: [10, 50, 10],
           },
         ]}
         options={{
           colors: ["#F7CD5D"],
+          dataLabels: {
+            enabled: false,
+          },
           stroke: { width: 0, curve: "smooth" },
           xaxis: {
             categories: ["5:00 AM", "2:00 PM", "7:00 PM"],
           },
           yaxis: {
-            enabled: false,
+            show: false,
           },
         }}
       />
