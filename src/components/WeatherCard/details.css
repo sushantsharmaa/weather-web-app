@@ -40,3 +40,14 @@
 .detail-four img {
   width: 100%;
 }
+
+.cityName {
+  margin-left: 120vh;
+}
+
+@media only screen and (max-width: 600px) {
+  /* Extra small devices (phones, 600px and down) */
+  .cityName {
+    display: none;
+  }
+}

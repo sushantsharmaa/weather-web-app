@@ -8,6 +8,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Home = () => {
+  let clear = "./images/clear.png";
+  let clouds = "./images/clouds.png";
+  let rain = "./images/rain.png";
   const myRef = useRef();
   const location = useGeoLocation();
   const [city, setCity] = useState(null);
@@ -104,15 +107,29 @@ const Home = () => {
         <div className="autocomplete">
           {search.map((item) => {
             return (
-              <div ref={myRef} key={item.id} className="autocompleteItems">
-                <span
-                  onClick={() => {
-                    clickMe();
-                    setCity(item.name);
-                  }}
-                >
-                  {item.name}
-                </span>
+              <div
+                ref={myRef}
+                key={item.id}
+                onClick={() => {
+                  clickMe();
+                  setCity(item.name);
+                }}
+                className="autocompleteItems"
+              >
+                <span>{item.name}</span>
+                <div>
+                  <span>{item.main.temp}°C</span>
+                  <img
+                    src={
+                      item.weather[0].main === "Clear"
+                        ? clear
+                        : item.weather[0].main === "Clouds"
+                        ? clouds
+                        : rain
+                    }
+                    alt={item.weather[0].main}
+                  />
+                </div>
               </div>
             );
           })}
