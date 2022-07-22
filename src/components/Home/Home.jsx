@@ -1,52 +1,24 @@
 import "./home.css";
 import axios from "axios";
-import { useEffect, useCallback, useState, useRef } from "react";
+import { City } from "country-state-city";
 import WetherDays from "../WeatherDays/WetherDays";
+import { useEffect, useState, useRef } from "react";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import useGeoLocation from "../../Hooks/useGeoLocation";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Home = () => {
-  let clear = "./images/clear.png";
-  let clouds = "./images/clouds.png";
-  let rain = "./images/rain.png";
+  const keys = ["name"];
   const myRef = useRef();
   const location = useGeoLocation();
   const [city, setCity] = useState(null);
-  const [search, setSearch] = useState([]);
+  const [query, setQuery] = useState("");
   let currentDay = new Date().getDay() - 1;
   const [weather, setWeather] = useState([]);
   const [isTrue, setIsTrue] = useState(false);
+  const cities = City.getCitiesOfCountry("IN");
   const [currentCityWeather, setCurrentCityWeather] = useState({});
-
-  const debounce = (func) => {
-    let timer;
-    return function (...args) {
-      const context = this;
-      if (timer) {
-        clearTimeout(timer);
-      }
-      timer = setTimeout(() => {
-        timer = null;
-        func.apply(context, args);
-      }, 500);
-    };
-  };
-
-  const handleChange = async (event) => {
-    const { value } = event.target;
-    try {
-      const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=9102fcb602fc2c718391570e2dab5618&units=metric`
-      );
-      setSearch([...search, response.data]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const optimisedVersion = useCallback(debounce(handleChange), []);
 
   const searchCityWeather = async () => {
     try {
@@ -86,8 +58,18 @@ const Home = () => {
     getWeatherData();
   }, [location]);
 
-  const clickMe = () => {
+  const search = (data) => {
+    return data.filter((item) =>
+      keys.some((key) => item[key].toLowerCase().includes(query))
+    );
+  };
+
+  const onClick = () => {
     myRef.current.style.display = "none";
+  };
+
+  const handleFocus = () => {
+    myRef.current.style.display = "block";
   };
 
   return (
@@ -97,41 +79,32 @@ const Home = () => {
         <input
           type="text"
           className="search"
+          value={query}
+          onFocus={handleFocus}
           onKeyPress={handleKeyPress}
-          onChange={optimisedVersion}
           placeholder="Search places..."
+          onChange={(e) => setQuery(e.target.value)}
         />
         <SearchOutlinedIcon className="search-icon" />
       </div>
-      {search?.length > 0 && (
-        <div className="autocomplete">
-          {search.map((item) => {
-            return (
+      {search(cities)?.length > 0 && (
+        <div className="autocomplete" ref={myRef}>
+          {search(cities).map((item, index) => {
+            return index < 10 ? (
               <div
-                ref={myRef}
-                key={item.id}
+                key={item.name}
                 onClick={() => {
-                  clickMe();
+                  onClick();
                   setCity(item.name);
                 }}
                 className="autocompleteItems"
               >
                 <span>{item.name}</span>
                 <div>
-                  <span>{item.main.temp}°C</span>
-                  <img
-                    src={
-                      item.weather[0].main === "Clear"
-                        ? clear
-                        : item.weather[0].main === "Clouds"
-                        ? clouds
-                        : rain
-                    }
-                    alt={item.weather[0].main}
-                  />
+                  <img src="./images/clouds.png" alt={item.name} />
                 </div>
               </div>
-            );
+            ) : null;
           })}
         </div>
       )}

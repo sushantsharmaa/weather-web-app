@@ -50,7 +50,7 @@ const WeatherCard = ({ weather, currentCityWeather }) => {
           }
           alt={currentCityWeather.weather[0].main}
         />
-        <h1 className="cityName">{currentCityWeather.name}</h1>
+        <h2 className="cityName">{currentCityWeather.name}</h2>
       </div>
       <div>
         <LineChart chartData={userData} />
