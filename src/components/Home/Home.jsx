@@ -59,9 +59,7 @@ const Home = () => {
   }, [location]);
 
   const search = (data) => {
-    return data.filter((item) =>
-      keys.some((key) => item[key].toLowerCase().includes(query))
-    );
+    return data.filter((item) => keys.some((key) => item[key].includes(query)));
   };
 
   const onClick = () => {
