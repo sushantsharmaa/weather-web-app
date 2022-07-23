@@ -27,6 +27,7 @@ input {
 
 .autocomplete {
   width: 100%;
+  display: none;
   margin: 2px 0px 0px 2px;
   background-color: #fff;
   border-radius: 5px;

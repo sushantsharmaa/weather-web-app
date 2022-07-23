@@ -6,7 +6,7 @@ const AreaChart = () => {
     <div className="container-fluid mb-3 mt-3">
       <Chart
         type="area"
-        height={180}
+        height={200}
         series={[
           {
             name: "Time",

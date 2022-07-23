@@ -1,9 +1,11 @@
 import "./details.css";
-import LineChart from "../WeatherChart/LineChart";
 import { useState } from "react";
+import Chart from "react-apexcharts";
+import LineChart from "../WeatherChart/LineChart";
 import AreaChart from "../WeatherChart/AreaChart";
 
 const WeatherCard = ({ weather, currentCityWeather }) => {
+  console.log(weather);
   let clear = "./images/clear.png";
   let clouds = "./images/clouds.png";
   let rain = "./images/rain.png";
@@ -17,10 +19,17 @@ const WeatherCard = ({ weather, currentCityWeather }) => {
       "6:00 AM",
       "9:00 PM",
       "12:00 AM",
+      "3:00 AM",
+      "6:00 AM",
     ],
     datasets: [
       {
         label: "Temperature",
+        fill: {
+          target: "origin",
+          above: "#C4DDFF", // Area will be red above the origin
+          below: "rgb(0, 0, 255)", // And blue below the origin
+        },
         data: weather.map((data) => data.main.temp),
         backgroundColor: [
           "#C499BA",

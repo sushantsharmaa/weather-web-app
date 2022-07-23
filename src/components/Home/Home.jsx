@@ -88,7 +88,7 @@ const Home = () => {
       {search(cities)?.length > 0 && (
         <div className="autocomplete" ref={myRef}>
           {search(cities).map((item, index) => {
-            return index < 10 ? (
+            return index < 5 ? (
               <div
                 key={item.name}
                 onClick={() => {
